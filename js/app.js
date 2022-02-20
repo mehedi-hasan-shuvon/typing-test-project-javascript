@@ -4,8 +4,17 @@ const inputField = document.getElementById('input-field');
 
 const miskateTag = document.getElementById('mistake');
 
+const timeTag = document.getElementById('time');
+const wmpTag = document.getElementById('wmp');
+const cpmTag = document.getElementById('cpm');
+
+let timer;
+let maxTime = 10;
+let timeLeft = maxTime;
+
 let mistake = 0;
 let charIndex = 0;
+let isTyping = false;
 // console.log(typingText.innerText);
 
 // generating random paragraph 
@@ -28,32 +37,61 @@ function initTyping() {
 
     const charecters = typingText.getElementsByClassName('span');
     let typedchar = inputField.value.split('')[charIndex];
-    if (typedchar == null) {
-        charIndex--;
-        if (charecters[charIndex].classList.contains('incorrect')) {
-            mistake--;
+
+    if (charIndex < charecters.length - 1 && timeLeft > 0) {
+        if (isTyping == false) {
+            timer = setInterval(initTimer, 1000);
+            isTyping = true;
         }
 
-        charecters[charIndex].classList.remove('correct', 'incorrect');
-    } else {
-        if (typedchar === charecters[charIndex].innerText) {
-            charecters[charIndex].classList.add('correct');
+
+
+        if (typedchar == null) {
+            charIndex--;
+            if (charecters[charIndex].classList.contains('incorrect')) {
+                mistake--;
+            }
+
+            charecters[charIndex].classList.remove('correct', 'incorrect');
         } else {
-            mistake++;
-            charecters[charIndex].classList.add('incorrect');
+            if (typedchar === charecters[charIndex].innerText) {
+                charecters[charIndex].classList.add('correct');
+            } else {
+                mistake++;
+                charecters[charIndex].classList.add('incorrect');
+            }
+            charIndex++;
         }
-        charIndex++;
+
+        console.log(typedchar);
+        for (const span of charecters) {
+            span.classList.remove('active');
+        }
+        charecters[charIndex].classList.add('active');
+        let wpm = Math.round(((charIndex - mistake) / 5) / (maxTime - timeLeft) * 60);
+        wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
+
+        wmpTag.innerText = wpm;
+        miskateTag.innerText = mistake;
+        cpmTag.innerText = charIndex - mistake;
+    } else {
+        clearInterval(timer);
+        inputField.value = "";
+        alert("time is over");
     }
 
-    console.log(typedchar);
-    for (const span of charecters) {
-        span.classList.remove('active');
-    }
-    charecters[charIndex].classList.add('active');
-    miskateTag.innerText = mistake;
+
 }
 
 
+function initTimer() {
+    if (timeLeft > 0) {
+        timeLeft--;
+        timeTag.innerText = timeLeft;
+    } else {
+        clearInterval(timer);
+    }
+}
 
 randomParagraph();
 inputField.addEventListener('input', initTyping);
