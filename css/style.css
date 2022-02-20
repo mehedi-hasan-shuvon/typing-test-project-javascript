@@ -21,7 +21,7 @@
 }
 
 #header-text{
-    color: burlywood;
+    color: #789395;
 }
 
 #header-special{
@@ -77,3 +77,5 @@ position: relative;
     opacity: 0;
     position: absolute;
 }
+
+
