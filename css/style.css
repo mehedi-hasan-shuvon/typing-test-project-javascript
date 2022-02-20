@@ -37,10 +37,10 @@ p{
 }
 
 .correct{
-    color:aquamarine;
+    color:green;
 }
 .incorrect{
-    color:lightcoral;
+    color:red;
     background: #ffc0cb;
     outline: 1px solid rgb(82, 27, 27);
     border-radius: 4px;

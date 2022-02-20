@@ -2,6 +2,9 @@ const typingText = document.getElementById('typing-p');
 
 const inputField = document.getElementById('input-field');
 
+const miskateTag = document.getElementById('mistake');
+
+let mistake = 0;
 let charIndex = 0;
 // console.log(typingText.innerText);
 
@@ -25,14 +28,29 @@ function initTyping() {
 
     const charecters = typingText.getElementsByClassName('span');
     let typedchar = inputField.value.split('')[charIndex];
-    if (typedchar === charecters[charIndex].innerText) {
-        charecters[charIndex].classList.add('correct');
+    if (typedchar == null) {
+        charIndex--;
+        if (charecters[charIndex].classList.contains('incorrect')) {
+            mistake--;
+        }
+
+        charecters[charIndex].classList.remove('correct', 'incorrect');
     } else {
-        charecters[charIndex].classList.add('incorrect');
+        if (typedchar === charecters[charIndex].innerText) {
+            charecters[charIndex].classList.add('correct');
+        } else {
+            mistake++;
+            charecters[charIndex].classList.add('incorrect');
+        }
+        charIndex++;
     }
-    charIndex++;
+
     console.log(typedchar);
+    for (const span of charecters) {
+        span.classList.remove('active');
+    }
     charecters[charIndex].classList.add('active');
+    miskateTag.innerText = mistake;
 }
 
 
