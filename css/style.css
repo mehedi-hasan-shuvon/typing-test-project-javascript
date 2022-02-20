@@ -5,4 +5,33 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+ 
+}
+
+#body{
+    background-color: lightblue ;
+}
+#wrapper{
+    border: 2px solid white;
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    
+    width:90%;
+    /* height: 80vh; */
+}
+
+#header-text{
+    color: burlywood;
+}
+
+#header-special{
+    color: lightcoral;
+}
+
+p{
+    font-size: 25px;
+}
+
+#button-id{
+    background: lightseagreen !important;
 }
