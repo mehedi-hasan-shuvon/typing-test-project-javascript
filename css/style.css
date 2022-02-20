@@ -71,3 +71,9 @@ position: relative;
         opacity:1;
     }
 }
+
+#input-field{
+    z-index: -999;
+    opacity: 0;
+    position: absolute;
+}

@@ -7,9 +7,10 @@ const miskateTag = document.getElementById('mistake');
 const timeTag = document.getElementById('time');
 const wmpTag = document.getElementById('wmp');
 const cpmTag = document.getElementById('cpm');
+const tryAgainBtn = document.getElementById('button-id');
 
 let timer;
-let maxTime = 10;
+let maxTime = 30;
 let timeLeft = maxTime;
 
 let mistake = 0;
@@ -19,12 +20,15 @@ let isTyping = false;
 
 // generating random paragraph 
 function randomParagraph() {
-    let randIndex = Math.floor(Math.random() * paragraphs.length)
+    let randIndex = Math.floor(Math.random() * paragraphs.length);
+    typingText.innerHTML = "";
     const charArr = paragraphs[randIndex].split('');
     for (const char of charArr) {
         let spanTag = `<span class='span'>${char}</span>`;
         typingText.innerHTML += spanTag;
     }
+
+    typingText.getElementsByClassName('span')[0].classList.add('active');
     document.addEventListener('keydown', function () {
         inputField.focus();
     });
@@ -93,5 +97,19 @@ function initTimer() {
     }
 }
 
+function resetGame() {
+    randomParagraph();
+    inputField.value = "";
+    clearInterval(timer);
+    timeLeft = maxTime;
+    charIndex = mistake = isTyping = 0;
+    timeTag.innerText = timeLeft;
+    wmpTag.innerText = 0;
+    miskateTag.innerText = mistake;
+    cpmTag.innerText = 0;
+}
+
+
 randomParagraph();
 inputField.addEventListener('input', initTyping);
+tryAgainBtn.addEventListener('click', resetGame);
