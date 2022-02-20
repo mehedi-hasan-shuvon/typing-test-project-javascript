@@ -35,3 +35,39 @@ p{
 #button-id{
     background: lightseagreen !important;
 }
+
+.correct{
+    color:aquamarine;
+}
+.incorrect{
+    color:lightcoral;
+    background: #ffc0cb;
+    outline: 1px solid rgb(82, 27, 27);
+    border-radius: 4px;
+}
+
+.active{
+    color: #17a2b8;
+
+}
+
+.span{
+position: relative;
+}
+.active::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom:0;
+    height: 2px;
+    width: 100%;
+    opacity: 0;
+    background: #17a2b8;
+    animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:1;
+    }
+}
